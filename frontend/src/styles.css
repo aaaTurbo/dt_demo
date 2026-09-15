@@ -1,0 +1,295 @@
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #f4f5f7;
+}
+
+.boot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #666;
+  font-size: 15px;
+}
+
+.app {
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .board {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .panel {
+    min-height: 420px;
+    height: 70vh;
+  }
+}
+
+.panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
+}
+
+.panel__header {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.panel__header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.panel__count {
+  color: #888;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  position: relative;
+  min-height: 0;
+}
+
+.panel__list--over {
+  background: #f3fbf7;
+  outline: 2px dashed #0a7;
+  outline-offset: -2px;
+}
+
+.panel__loading,
+.panel__empty {
+  padding: 12px 16px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.search-bar__input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  min-width: 0;
+}
+
+.search-bar__input:focus {
+  border-color: #0a7;
+}
+
+.search-bar__dir {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.search-bar__dir:hover {
+  background: #f0f0f0;
+}
+
+.add-form {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.add-form__input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  min-width: 0;
+}
+
+.add-form__input:focus {
+  border-color: #0a7;
+}
+
+.add-form__btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #0a7;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.add-form__btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.add-form__btn:not(:disabled):hover {
+  background: #096;
+}
+
+.add-form__error {
+  position: absolute;
+  bottom: -18px;
+  left: 12px;
+  color: #c00;
+  font-size: 11px;
+  z-index: 1;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 13px;
+  border-bottom: 1px solid #f5f5f5;
+  user-select: none;
+}
+
+.row--clickable {
+  cursor: pointer;
+}
+
+.row--clickable:hover {
+  background: #f9f9f9;
+}
+
+.row--sortable {
+  cursor: grab;
+  background: #fff;
+}
+
+.row--sortable:active {
+  cursor: grabbing;
+}
+
+.row--sortable:hover {
+  background: #f9f9f9;
+}
+
+.row--dragging {
+  background: #f0f0f0;
+}
+
+.row--overlay {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  cursor: grabbing;
+  width: 320px;
+}
+
+.row__id {
+  font-variant-numeric: tabular-nums;
+}
+
+.row__hint {
+  margin-left: auto;
+  color: #aaa;
+}
+
+.row__drag {
+  color: #bbb;
+  cursor: grab;
+  letter-spacing: -2px;
+  font-size: 12px;
+}
+
+.row__action {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.row__action:hover {
+  color: #c00;
+}
+
+.toast {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 10px 16px;
+  background: #c00;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 320px;
+}
+
+.toast__close {
+  margin-left: 8px;
+  opacity: 0.7;
+}
