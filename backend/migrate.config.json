@@ -1,0 +1,8 @@
+{
+  "migrations-table": "pgmigrations",
+  "migrations-dir": "src/migrations",
+  "check-order": true,
+  "verbose": true,
+  "migration-file-language": "js",
+  "database-url-var": "PG_URL"
+}
