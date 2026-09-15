@@ -1,0 +1,81 @@
+{
+  "vhosts": [
+    { "name": "/" }
+  ],
+  "exchanges": [
+    {
+      "name": "items.topic",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "users": [
+    {
+      "name": "dtt",
+      "password": "dttdttdtt",
+      "tags": ""
+    }
+  ],
+  "permissions": [
+    {
+      "user": "dtt",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "add.queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "select.queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "reorder.queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "items.topic",
+      "vhost": "/",
+      "destination": "add.queue",
+      "destination_type": "queue",
+      "routing_key": "add.queue",
+      "arguments": {}
+    },
+    {
+      "source": "items.topic",
+      "vhost": "/",
+      "destination": "select.queue",
+      "destination_type": "queue",
+      "routing_key": "select.queue",
+      "arguments": {}
+    },
+    {
+      "source": "items.topic",
+      "vhost": "/",
+      "destination": "reorder.queue",
+      "destination_type": "queue",
+      "routing_key": "reorder.queue",
+      "arguments": {}
+    }
+  ]
+}
